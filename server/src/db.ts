@@ -1,6 +1,7 @@
 import { createConnection } from 'typeorm';
 import path from 'path';
 import { DB_HOST, DB_NAME, DB_PASS, DB_USER } from './constants';
+import userEntity from './entities/User';
 
 const connectDB = async () => {
   return await createConnection({
@@ -10,8 +11,8 @@ const connectDB = async () => {
     database: DB_NAME,
     username: DB_USER,
     password: DB_PASS,
-    entities: [],
-    synchronize: false,
+    entities: [userEntity],
+    synchronize: true,
     logging: true,
     migrations: [path.join(__dirname, './migrations/*.ts')],
   }).then(() => console.log('DB CONNECTED SUCCESSFULY'));
