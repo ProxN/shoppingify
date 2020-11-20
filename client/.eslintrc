@@ -37,12 +37,6 @@
     "jsx-quotes": ["error", "prefer-single"],
     "@typescript-eslint/camelcase": "off",
     "react/prop-types": "off",
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
-    ],
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-underscore-dangle": "off",
     "@typescript-eslint/no-misused-promises": "off",
@@ -51,6 +45,7 @@
     "@typescript-eslint/comma-dangle":"off",
     "@typescript-eslint/no-empty-interface":"off",
     "react/jsx-props-no-spreading":"off",
-    "react/react-in-jsx-scope":"off"
+    "react/react-in-jsx-scope":"off",
+    "@typescript-eslint/explicit-function-return-type":"off"
   }
 }
