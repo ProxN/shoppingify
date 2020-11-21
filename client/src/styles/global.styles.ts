@@ -16,7 +16,7 @@ export default createGlobalStyle`
         font-size:10px;
     }
     
-    #root,
+    #__next,
     body{
         width:100%;
         height:100%;
