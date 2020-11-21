@@ -32,6 +32,9 @@ export class User extends BaseEntity {
   @Column({ type: 'timestamp', nullable: true })
   passwordResetExpires?: Date | null;
 
+  @Column({ type: 'timestamp', nullable: true })
+  passwordChanged?: Date;
+
   @Field()
   @CreateDateColumn()
   createdAt?: Date;
@@ -59,6 +62,14 @@ export class User extends BaseEntity {
     this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
 
     return resetToken;
+  }
+
+  passwordChangedAfter(JWTtimestamp: number) {
+    if (this.passwordChanged) {
+      const changedTimeStamp = Math.floor(this.passwordChanged.getTime() / 1000);
+      return JWTtimestamp < changedTimeStamp;
+    }
+    return false;
   }
 }
 

@@ -1,16 +1,21 @@
-import { Arg, Args, Mutation, Resolver } from 'type-graphql';
+import { Arg, Args, Mutation, Resolver, Ctx } from 'type-graphql';
 import { MoreThan } from 'typeorm';
 import crypto from 'crypto';
 import User from '../../entities/User';
 import validate, { isEmail } from '../../utils/validate';
 import sendEmail from '../../utils/sendEmail';
+import { generateToken, setTokenCookie } from '../../utils/token';
 import { LoginRegisterInputs, AuthResponse, ForgotPassRes, ResetPasswordInputs } from './inputs';
 import * as authErrors from './errors';
+import { Context } from '../../types/context';
 
 @Resolver()
 class AuthResolver {
   @Mutation(() => AuthResponse)
-  async register(@Args() { email, password }: LoginRegisterInputs): Promise<AuthResponse> {
+  async register(
+    @Args() { email, password }: LoginRegisterInputs,
+    @Ctx() { res }: Context
+  ): Promise<AuthResponse> {
     const error = validate(email, password);
     if (error) {
       return { error };
@@ -19,6 +24,8 @@ class AuthResolver {
     let user;
     try {
       user = await User.create({ email, password }).save();
+      const token = generateToken(user.id);
+      setTokenCookie(res, token);
     } catch (err) {
       if (err.code === '23505') {
         return { error: authErrors.EmailAlready };
@@ -28,7 +35,10 @@ class AuthResolver {
   }
 
   @Mutation(() => AuthResponse)
-  async login(@Args() { email, password }: LoginRegisterInputs): Promise<AuthResponse> {
+  async login(
+    @Args() { email, password }: LoginRegisterInputs,
+    @Ctx() { res }: Context
+  ): Promise<AuthResponse> {
     const error = validate(email, password);
     if (error) {
       return { error };
@@ -39,6 +49,9 @@ class AuthResolver {
     if (!user || !(await user.comparePassword(password, user.password))) {
       return { error: authErrors.IncorrectEmailOrPassword };
     }
+
+    const token = generateToken(user.id);
+    setTokenCookie(res, token);
 
     return { user };
   }
@@ -71,12 +84,15 @@ class AuthResolver {
   }
 
   @Mutation(() => AuthResponse)
-  async resetPassword(@Args() { token, password }: ResetPasswordInputs): Promise<AuthResponse> {
+  async resetPassword(
+    @Args() { resetToken, password }: ResetPasswordInputs,
+    @Ctx() { res }: Context
+  ): Promise<AuthResponse> {
     if (!password) {
       return { error: authErrors.EmptyPassword };
     }
 
-    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 
     const user = await User.findOne({
       where: { passwordResetToekn: hashedToken, passwordResetExpires: MoreThan(new Date()) },
@@ -89,7 +105,11 @@ class AuthResolver {
     user.password = password;
     user.passwordResetExpires = null;
     user.passwordResetToekn = null;
+    user.passwordChanged = new Date();
     await user.save();
+
+    const token = generateToken(user.id);
+    setTokenCookie(res, token);
 
     return { user };
   }

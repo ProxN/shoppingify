@@ -13,7 +13,7 @@ export class LoginRegisterInputs {
 @ArgsType()
 export class ResetPasswordInputs {
   @Field()
-  token!: string;
+  resetToken!: string;
 
   @Field()
   password!: string;
