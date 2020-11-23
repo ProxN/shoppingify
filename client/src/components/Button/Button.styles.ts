@@ -27,7 +27,7 @@ const PrimaryStyles = css`
 const DefaultStyles = css`
   ${({ theme }) => css`
     border-color: ${theme.colors.borderColor};
-    color: ${theme.colors.textInverse.secondary};
+    color: ${theme.colors.text.secondary};
   `};
 `;
 

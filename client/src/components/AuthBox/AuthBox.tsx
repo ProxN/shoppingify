@@ -19,25 +19,28 @@ interface AuthBoxProps {
   width?: string;
   title?: string;
   page?: 'login' | 'register';
+  hideAuthLinks?: boolean;
 }
 
 const AuthBox: React.FC<AuthBoxProps> = (props) => {
-  const { children, width, title, page } = props;
+  const { children, width, title, hideAuthLinks, page } = props;
   return (
     <AuthBoxContainer width={width}>
       <AuthBoxTitle>{title}</AuthBoxTitle>
       {children}
       <AuthInfo>
-        {page && (
-          <Text appearance='hint'>
-            {info[page].text}
-            <Link href={info[page].href}>
-              &nbsp;
-              {info[page].linkText}
-            </Link>
-          </Text>
+        {!hideAuthLinks && page && (
+          <>
+            <Text appearance='hint'>
+              {info[page].text}
+              <Link href={info[page].href}>
+                &nbsp;
+                {info[page].linkText}
+              </Link>
+            </Text>
+            <Link href='/forgot_password'>Forgot Password?</Link>
+          </>
         )}
-        <Link href='/forgotPassword'>Forgot Password?</Link>
       </AuthInfo>
     </AuthBoxContainer>
   );
@@ -45,6 +48,7 @@ const AuthBox: React.FC<AuthBoxProps> = (props) => {
 
 AuthBox.defaultProps = {
   page: 'login',
+  hideAuthLinks: false,
 };
 
 export default AuthBox;
