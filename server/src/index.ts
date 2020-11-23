@@ -2,11 +2,11 @@ import 'reflect-metadata';
 import { config } from 'dotenv';
 config({ path: './config.env' });
 
-import express from 'express';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
+import express from 'express';
+import cors from 'cors';
 import connectDB from './db';
 import authChecker from './utils/authChecker';
 import { PORT } from './constants';
@@ -19,22 +19,28 @@ const Main = async () => {
 
   const app = express();
 
-  app.set('trust proxy', 1);
-  const allowedOrigins = ['http://localhost:3000'];
+  // app.set('trust proxy', 1);
+  // const allowedOrigins = ['http://localhost:3000'];
+
+  // app.use(
+  //   cors({
+  //     origin: (origin, callback) => {
+  //       // allow requests with no origin
+  //       // (like mobile apps or curl requests)
+  //       if (!origin) return callback(null, true);
+  //       if (allowedOrigins.indexOf(origin) === -1) {
+  //         const msg =
+  //           'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
+  //         return callback(new Error(msg), false);
+  //       }
+  //       return callback(null, true);
+  //     },
+  //   })
+  // );
 
   app.use(
     cors({
-      origin: (origin, callback) => {
-        // allow requests with no origin
-        // (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-          const msg =
-            'The CORS policy for this site does not ' + 'allow access from the specified Origin.';
-          return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-      },
+      origin: 'http://localhost:3000',
       credentials: true,
     })
   );
@@ -55,6 +61,7 @@ const Main = async () => {
 
   apolloServer.applyMiddleware({
     app,
+    cors: false,
   });
 
   app.listen(PORT, () => console.log(`Server starting at PORT ${PORT}`));

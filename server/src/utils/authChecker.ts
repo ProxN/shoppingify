@@ -11,10 +11,24 @@ interface IDecodeToken {
   exp: number;
 }
 
+const checkToken = (auth: string) => {
+  let token;
+  if (auth && auth.startsWith('Bearer')) {
+    token = auth.split(' ')[1];
+  } else {
+    token = auth;
+  }
+
+  return token;
+};
+
 const authChecker: AuthChecker<Context> = async ({ context }) => {
   const { req } = context;
 
-  const token = req.cookies ? req.cookies.token : undefined;
+  const token = req.headers.authorization
+    ? checkToken(req.headers.authorization)
+    : req.cookies.token;
+  // const token = req.cookies ? req.cookies.token : undefined;
 
   if (!token) {
     return false;

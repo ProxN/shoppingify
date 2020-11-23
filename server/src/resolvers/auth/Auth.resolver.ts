@@ -70,7 +70,7 @@ class AuthResolver {
 
     const resetToken = user.createResetToken();
 
-    const resetURL = `http://localhost:3000/resetPassword/${resetToken}`;
+    const resetURL = `http://localhost:3000/reset_password/${resetToken}`;
 
     await sendEmail({
       subject: 'Reset your password!!',
