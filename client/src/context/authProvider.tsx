@@ -43,7 +43,7 @@ export const ProtectRoute: React.FC = ({ children }) => {
     push('/login');
     return null;
   }
-  if (user && authPaths.includes(pathname)) {
+  if (user && (authPaths.includes(pathname) || pathname.startsWith('/reset'))) {
     push('/');
     return null;
   }

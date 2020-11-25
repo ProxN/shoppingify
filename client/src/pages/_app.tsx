@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { ReactQueryCacheProvider, QueryCache } from 'react-query';
 import { ReactQueryDevtools } from 'react-query-devtools';
 import { Hydrate } from 'react-query/hydration';
+import Layout from '@components/Layout';
 import { AuthProvider, ProtectRoute } from '../context/authProvider';
 import { Theme, GlobalStyles } from '../styles';
 
@@ -24,9 +25,11 @@ const App = ({ Component, pageProps }: AppProps) => {
         <ReactQueryCacheProvider queryCache={queryCache}>
           <GlobalStyles />
           <ProtectRoute>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </ProtectRoute>
-          <ReactQueryDevtools />
+          {/* <ReactQueryDevtools /> */}
         </ReactQueryCacheProvider>
       </ThemeProvider>
     </AuthProvider>

@@ -42,7 +42,7 @@ const colors = {
     secondary: '#e9eaeb',
   },
   bgInverse: '#272c36',
-  bg: '#fff',
+  bg: '#FAFAFE',
   borderColor: 'rgba(191,196,209,.5)',
   borderFocus: 'rgba(39,44,54,.8)',
 };
