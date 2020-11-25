@@ -28,7 +28,6 @@ const authChecker: AuthChecker<Context> = async ({ context }) => {
   const token = req.headers.authorization
     ? checkToken(req.headers.authorization)
     : req.cookies.token;
-  // const token = req.cookies ? req.cookies.token : undefined;
 
   if (!token) {
     return false;

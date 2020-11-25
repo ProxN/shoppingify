@@ -10,9 +10,9 @@ import cors from 'cors';
 import connectDB from './db';
 import authChecker from './utils/authChecker';
 import { PORT } from './constants';
-import HelloResolver from './resolvers/Hello.resolver';
 import AuthResolver from './resolvers/auth/Auth.resolver';
 import UserResolver from './resolvers/user/User.resolver';
+import ItemResolver from './resolvers/Item/Item.resolver';
 
 const Main = async () => {
   await connectDB();
@@ -49,7 +49,7 @@ const Main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver, AuthResolver, UserResolver],
+      resolvers: [ItemResolver, AuthResolver, UserResolver],
       validate: false,
       authChecker,
     }),

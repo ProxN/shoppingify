@@ -10,7 +10,9 @@ import {
   CreateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  OneToMany,
 } from 'typeorm';
+import Item from './Item';
 
 @ObjectType()
 @Entity()
@@ -34,6 +36,9 @@ export class User extends BaseEntity {
 
   @Column({ type: 'timestamp', nullable: true })
   passwordChanged?: Date;
+
+  @OneToMany(() => Item, (Item) => Item.user)
+  items?: Item[];
 
   @Field()
   @CreateDateColumn()

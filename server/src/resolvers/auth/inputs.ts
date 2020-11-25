@@ -1,5 +1,6 @@
 import { ArgsType, Field, ObjectType } from 'type-graphql';
 import User from '../../entities/User';
+import { ErrorResponse } from '../types';
 
 @ArgsType()
 export class LoginRegisterInputs {
@@ -17,21 +18,6 @@ export class ResetPasswordInputs {
 
   @Field()
   password!: string;
-}
-
-@ObjectType()
-class FieldError {
-  @Field()
-  field?: string;
-
-  @Field()
-  message?: string;
-}
-
-@ObjectType()
-class ErrorResponse {
-  @Field(() => FieldError, { nullable: true })
-  error?: FieldError;
 }
 
 @ObjectType()
