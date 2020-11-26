@@ -70,3 +70,7 @@ export const TextArea = styled.textarea`
   ${InputBaseStyles};
   resize: none;
 `;
+
+export const SearchInput = styled(StyledInput)`
+  padding-left: 4.6rem;
+`;

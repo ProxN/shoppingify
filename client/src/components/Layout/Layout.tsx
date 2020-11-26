@@ -7,6 +7,7 @@ const authPaths = ['/login', '/register', '/forgot_password'];
 
 const Wrapper = styled.div`
   margin-left: 9.4rem;
+  margin-right: 39rem;
 `;
 
 const Layout: React.FC = ({ children }) => {

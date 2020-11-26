@@ -29,6 +29,7 @@ export default createGlobalStyle`
           line-height: ${theme.lineHeight};
           font-size: ${theme.fontSizeBase}px;
           color: ${theme.colors.text.main};
+          font-weight: ${theme.fontWeights[0]};
           font-family: ${theme.fontFamily};
         `};
     }

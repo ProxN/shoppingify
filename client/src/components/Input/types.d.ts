@@ -28,4 +28,5 @@ export interface InputProps extends BaseProps {
 export interface CompoundedComponent
   extends React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>> {
   TextArea: React.FC<InputProps>;
+  Search: React.FC<InputProps>;
 }

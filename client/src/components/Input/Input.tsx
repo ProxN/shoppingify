@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import SearchIcon from '@assets/search.svg';
 import { InputProps, CompoundedComponent } from './types';
 import {
   InputBox,
@@ -7,6 +8,7 @@ import {
   InputContainer,
   Label,
   TextArea as StyledTextArea,
+  SearchInput,
 } from './Input.styles';
 
 const InputWrapper: React.FC<{ label?: string }> = ({ children, label }) => {
@@ -45,14 +47,29 @@ const TextArea: React.FC<InputProps> = (props) => {
   );
 };
 
+const Search = forwardRef<Ref, InputProps>(
+  (props, ref): React.ReactElement => {
+    const { onChange, icon, label, value, ...rest } = props;
+
+    return (
+      <InputWrapper label={label}>
+        <InputBox>
+          <SvgIcon>
+            <SearchIcon />
+          </SvgIcon>
+          <SearchInput ref={ref} onChange={onChange} withIcon={!!icon} {...rest} />
+        </InputBox>
+      </InputWrapper>
+    );
+  }
+);
+
 TextArea.defaultProps = {
   Size: 'default',
   borderRadius: '8px',
   type: 'text',
   fullWidth: false,
 };
-
-Input.TextArea = TextArea;
 
 Input.defaultProps = {
   Size: 'default',
@@ -62,5 +79,18 @@ Input.defaultProps = {
   value: '',
   defaultValue: '',
 };
+
+Search.defaultProps = {
+  Size: 'default',
+  borderRadius: '8px',
+  type: 'text',
+  fullWidth: false,
+  value: '',
+  defaultValue: '',
+};
+
+Input.Search = Search;
+
+Input.TextArea = TextArea;
 
 export default Input;

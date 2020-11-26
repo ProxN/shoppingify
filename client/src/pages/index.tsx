@@ -1,16 +1,25 @@
-import { NextPage } from 'next';
-import Link from 'next/link';
+import styled from 'styled-components';
+import CategoryBox from '@components/CategoryBox';
+import PageHeader from '@components/PageHeader';
+import ShoppingList from '@components/ShoppingList';
+import Flex from '@components/Flex';
 
-interface Props {}
+const Categories = styled.div`
+  padding: 0 8rem;
+`;
 
-const Index: NextPage<Props> = () => {
+const Index = () => {
   return (
-    <div>
-      <h1>Hello world</h1>
-      <Link href='/login'>
-        <span>go to login</span>
-      </Link>
-    </div>
+    <>
+      <div>
+        <PageHeader />
+        <Categories>
+          <CategoryBox />
+          <CategoryBox />
+        </Categories>
+      </div>
+      <ShoppingList />
+    </>
   );
 };
 
