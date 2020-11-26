@@ -13,6 +13,7 @@ interface BaseProps {
   name?: string;
   fullWidth?: boolean;
   defaultValue?: string;
+  margin?: string;
 }
 
 export interface InputStylesProps extends BaseProps {

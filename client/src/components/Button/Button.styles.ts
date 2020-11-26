@@ -28,14 +28,16 @@ const DefaultStyles = css`
   ${({ theme }) => css`
     border-color: ${theme.colors.borderColor};
     color: ${theme.colors.text.secondary};
+    background: #fff;
   `};
 `;
 
 const BaseStyles = css<StylesProps>`
-  ${({ fullWidth, Size, borderRadius }) => css`
+  ${({ fullWidth, Size, borderRadius, margin }) => css`
     padding: ${Size && ButtonSizes[Size]};
     width: ${fullWidth && '100%'};
     border-radius: ${borderRadius};
+    margin: ${margin && margin};
   `};
   font-size: 16px;
   background: none;

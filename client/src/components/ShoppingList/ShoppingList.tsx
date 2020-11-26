@@ -8,12 +8,18 @@ import {
   AddItemContent,
   ShoppingName,
   EditShoppingName,
-  ShoppingCategory,
-  ShoppingItem,
+  ItemsList,
+  SaveForm,
+  SaveInput,
+  ShoppingListAction,
 } from './ShoppingList.styles';
-import Text from '@components/Text';
+import CategoryItems from './CategoryItems';
 
-const ShoppingList = () => {
+interface ShoppingListProps {
+  handleToggleForm: () => void;
+}
+
+const ShoppingList: React.FC<ShoppingListProps> = ({ handleToggleForm }) => {
   return (
     <ShoppingContainer>
       <AddItemBox>
@@ -21,38 +27,29 @@ const ShoppingList = () => {
           <BottleSVG />
           <AddItemContent>
             <span>Didn’t find what you need?</span>
-            <Button Size='small'>Add Item</Button>
+            <Button onClick={handleToggleForm} Size='small'>
+              Add Item
+            </Button>
           </AddItemContent>
         </Flex>
       </AddItemBox>
-      <Flex margin='0 0 3.2rem 0' align='center' justify='space-between'>
+      <Flex margin='0 0 3rem 0' align='center' justify='space-between'>
         <ShoppingName>Shopping List</ShoppingName>
         <EditShoppingName>
           <PenSVG />
         </EditShoppingName>
       </Flex>
-      <ShoppingCategory>
-        <Text appearance='hint'>Fruit and vegetables</Text>
-        <ShoppingItem>
-          <span>Acocado</span>
-          <Button Size='small'>3 pcs</Button>
-        </ShoppingItem>
-        <ShoppingItem>
-          <span>Pre-cooked corn 450g</span>
-          <Button Size='small'>3 pcs</Button>
-        </ShoppingItem>
-      </ShoppingCategory>
-      <ShoppingCategory>
-        <Text appearance='hint'>Meat and Fish</Text>
-        <ShoppingItem>
-          <span>Acocado</span>
-          <Button Size='small'>3 pcs</Button>
-        </ShoppingItem>
-        <ShoppingItem>
-          <span>Pre-cooked corn 450g</span>
-          <Button Size='small'>3 pcs</Button>
-        </ShoppingItem>
-      </ShoppingCategory>
+      <ItemsList>
+        <CategoryItems />
+      </ItemsList>
+      <ShoppingListAction>
+        <SaveForm>
+          <SaveInput placeholder='Enter a name' margin='none' fullWidth />
+          <Button status='primary' Size='small'>
+            Save
+          </Button>
+        </SaveForm>
+      </ShoppingListAction>
     </ShoppingContainer>
   );
 };

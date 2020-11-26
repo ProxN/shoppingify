@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Input from '@components/Input';
 
 export const ShoppingContainer = styled.div`
   background: ${({ theme }) => theme.colors.primary.light};
@@ -29,10 +30,7 @@ export const AddItemContent = styled.div`
     font-weight: ${({ theme }) => theme.fontWeights[2]};
     font-size: ${({ theme }) => theme.fontSizes[2]}px;
     color: #fff;
-  }
-  button {
-    background: #fff;
-    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
   }
 `;
 
@@ -45,28 +43,36 @@ export const ShoppingName = styled.span`
 
 export const EditShoppingName = styled.div`
   display: flex;
+  cursor: pointer;
   svg {
     height: 2rem;
     width: 2rem;
   }
 `;
 
-export const ShoppingCategory = styled.div`
-  margin-bottom: 5rem;
+export const ItemsList = styled.div`
+  height: calc(100% - 30rem);
+  overflow: hidden;
 `;
 
-export const ShoppingItem = styled.div`
+export const ShoppingListAction = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3.5rem 4rem;
+  background: #fff;
+`;
+
+export const SaveInput = styled(Input)`
+  border: 2px solid ${({ theme }) => theme.colors.primary.main};
+`;
+
+export const SaveForm = styled.form`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 1.8rem;
-
-  span {
-    font-size: ${({ theme }) => theme.fontSizes[2]}px;
-  }
-
+  justify-content: center;
   button {
-    border: 1px solid ${({ theme }) => theme.colors.primary.main};
-    border-radius: 24px;
+    margin-left: 0.5rem;
   }
 `;

@@ -6,6 +6,7 @@ export interface StylesProps {
   type?: 'button' | 'submit' | 'reset';
   borderRadius?: string;
   status?: Status;
+  margin?: string;
 }
 
 export interface ButtonProps extends StylesProps {

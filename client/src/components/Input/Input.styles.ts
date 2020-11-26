@@ -7,8 +7,8 @@ const InputSizes = {
   large: '1.2rem 1.6rem',
 };
 
-export const InputContainer = styled.div`
-  margin-bottom: 1.4rem;
+export const InputContainer = styled.div<{ margin?: string }>`
+  margin-bottom: ${({ margin }) => margin || '1.4rem'};
 `;
 
 export const Label = styled.label`
@@ -19,7 +19,7 @@ export const Label = styled.label`
   color: #4f4f4f;
   text-transform: capitalize;
   font-weight: 500;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
 `;
 
 export const InputBox = styled.div`
@@ -73,4 +73,8 @@ export const TextArea = styled.textarea`
 
 export const SearchInput = styled(StyledInput)`
   padding-left: 4.6rem;
+
+  :nth-child(1) {
+    margin-bottom: 0;
+  }
 `;

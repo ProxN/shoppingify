@@ -11,9 +11,10 @@ import {
   SearchInput,
 } from './Input.styles';
 
-const InputWrapper: React.FC<{ label?: string }> = ({ children, label }) => {
+const InputWrapper: React.FC<{ label?: string; margin?: string }> = (props) => {
+  const { children, label, margin } = props;
   return (
-    <InputContainer>
+    <InputContainer margin={margin}>
       {label && <Label>{label}</Label>}
       {children}
     </InputContainer>
@@ -24,10 +25,10 @@ export type Ref = HTMLInputElement;
 
 const Input = forwardRef<Ref, InputProps>(
   (props, ref): React.ReactElement => {
-    const { onChange, icon, label, value, ...rest } = props;
+    const { onChange, icon, label, value, margin, ...rest } = props;
 
     return (
-      <InputWrapper label={label}>
+      <InputWrapper margin={margin} label={label}>
         <InputBox>
           {icon && <SvgIcon>{icon}</SvgIcon>}
           <StyledInput ref={ref} onChange={onChange} withIcon={!!icon} {...rest} />
