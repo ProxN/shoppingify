@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import SearchIcon from '@assets/search.svg';
-import { InputProps, CompoundedComponent } from './types';
+import { InputProps, CompoundedComponent, TextAreaProps } from './types';
 import {
   InputBox,
   SvgIcon,
@@ -22,31 +22,40 @@ const InputWrapper: React.FC<{ label?: string; margin?: string }> = (props) => {
 };
 
 export type Ref = HTMLInputElement;
+export type TextRef = HTMLTextAreaElement;
 
 const Input = forwardRef<Ref, InputProps>(
   (props, ref): React.ReactElement => {
-    const { onChange, icon, label, value, margin, ...rest } = props;
+    const { onChange, icon, label, margin, ...rest } = props;
 
     return (
       <InputWrapper margin={margin} label={label}>
         <InputBox>
           {icon && <SvgIcon>{icon}</SvgIcon>}
-          <StyledInput ref={ref} onChange={onChange} withIcon={!!icon} {...rest} />
+          <StyledInput
+            autoComplete='off'
+            ref={ref}
+            onChange={onChange}
+            withIcon={!!icon}
+            {...rest}
+          />
         </InputBox>
       </InputWrapper>
     );
   }
 ) as CompoundedComponent;
 
-const TextArea: React.FC<InputProps> = (props) => {
-  const { onChange, label, ...rest } = props;
+const TextArea = forwardRef<TextRef, TextAreaProps>(
+  (props, ref): React.ReactElement => {
+    const { onChange, label, ...rest } = props;
 
-  return (
-    <InputWrapper label={label}>
-      <StyledTextArea {...rest} />
-    </InputWrapper>
-  );
-};
+    return (
+      <InputWrapper label={label}>
+        <StyledTextArea onChange={onChange} ref={ref} {...rest} />
+      </InputWrapper>
+    );
+  }
+);
 
 const Search = forwardRef<Ref, InputProps>(
   (props, ref): React.ReactElement => {
@@ -78,7 +87,6 @@ Input.defaultProps = {
   type: 'text',
   fullWidth: false,
   value: '',
-  defaultValue: '',
 };
 
 Search.defaultProps = {
@@ -87,7 +95,6 @@ Search.defaultProps = {
   type: 'text',
   fullWidth: false,
   value: '',
-  defaultValue: '',
 };
 
 Input.Search = Search;

@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 type Item = {
-  key: string;
-  value: string;
+  id: string;
+  name: string;
 };
 
 interface DropDownProps {
   label?: string;
   placeholder?: string;
   items?: Item[];
+  handleDropDownSelect: (value: string) => void;
 }
 
 const DropDownBox = styled.div`
@@ -20,14 +21,13 @@ const DropDownBox = styled.div`
   padding: 0.5rem 0.8rem;
   max-height: 35rem;
   overflow-y: auto;
-  display: none;
 `;
 
 const DropDownContainer = styled.div`
   position: relative;
 
   :focus-within ${DropDownBox} {
-    display: block;
+    opacity: 1;
   }
 `;
 
@@ -44,14 +44,20 @@ const DropDownItem = styled.div`
 `;
 
 const Dropdown: React.FC<DropDownProps> = (props) => {
-  const { items, children } = props;
+  const { items, children, handleDropDownSelect } = props;
 
   return (
     <DropDownContainer>
       {children}
-      <DropDownBox>
-        {items && items.map((el) => <DropDownItem key={el.key}>{el.value}</DropDownItem>)}
-      </DropDownBox>
+      {items && items.length > 0 && (
+        <DropDownBox>
+          {items?.map((el) => (
+            <DropDownItem onClick={() => handleDropDownSelect(el.name)} key={el.id}>
+              {el.name}
+            </DropDownItem>
+          ))}
+        </DropDownBox>
+      )}
     </DropDownContainer>
   );
 };

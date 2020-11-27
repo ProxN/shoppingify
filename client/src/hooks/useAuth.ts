@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import { PasswordEmailInput, IUser } from '../types/index';
+import { PasswordEmailInput, IUser, IError } from '../types/index';
 import graphqlClient, { gql } from '../utils/graphqlClient';
 
 type QueryType = 'login' | 'register';
@@ -15,13 +15,6 @@ ${query}(email: $email, password: $password) {
         message
     }
 }`;
-
-interface IError {
-  error?: {
-    field: string;
-    message: string;
-  };
-}
 
 interface AuthResponse extends IError {
   user: IUser;

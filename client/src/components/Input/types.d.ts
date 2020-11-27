@@ -12,8 +12,9 @@ interface BaseProps {
   id?: string;
   name?: string;
   fullWidth?: boolean;
-  defaultValue?: string;
   margin?: string;
+  label?: string;
+  value?: string;
 }
 
 export interface InputStylesProps extends BaseProps {
@@ -22,12 +23,14 @@ export interface InputStylesProps extends BaseProps {
 
 export interface InputProps extends BaseProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  label?: string;
-  value?: string;
+}
+
+export interface TextAreaProps extends BaseProps {
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export interface CompoundedComponent
   extends React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>> {
-  TextArea: React.FC<InputProps>;
+  TextArea: React.FC<TextAreaProps>;
   Search: React.FC<InputProps>;
 }

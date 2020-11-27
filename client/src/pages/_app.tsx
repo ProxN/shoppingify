@@ -29,7 +29,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               <Component {...pageProps} />
             </Layout>
           </ProtectRoute>
-          {/* <ReactQueryDevtools /> */}
+          <ReactQueryDevtools />
         </ReactQueryCacheProvider>
       </ThemeProvider>
     </AuthProvider>

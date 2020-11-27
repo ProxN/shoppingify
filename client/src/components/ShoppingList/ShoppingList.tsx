@@ -44,7 +44,7 @@ const ShoppingList: React.FC<ShoppingListProps> = ({ handleToggleForm }) => {
       </ItemsList>
       <ShoppingListAction>
         <SaveForm>
-          <SaveInput placeholder='Enter a name' margin='none' fullWidth />
+          {/* <SaveInput placeholder='Enter a name' margin='none' fullWidth value='' /> */}
           <Button status='primary' Size='small'>
             Save
           </Button>
