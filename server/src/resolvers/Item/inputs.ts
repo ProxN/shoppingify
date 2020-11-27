@@ -1,4 +1,5 @@
 import { ArgsType, Field, ObjectType } from 'type-graphql';
+import Category from '../../entities/Category';
 import Item from '../../entities/Item';
 import { ErrorResponse } from '../types';
 
@@ -14,11 +15,18 @@ export class AddItemInputs {
   image?: string;
 
   @Field()
-  categoryId!: string;
+  categoryName!: string;
 }
 
 @ObjectType()
 export class ItemResponse extends ErrorResponse {
   @Field(() => Item, { nullable: true })
   item?: Item;
+}
+
+@ObjectType()
+@ObjectType()
+export class Categoires {
+  @Field(() => [Category])
+  categoires?: Category[];
 }

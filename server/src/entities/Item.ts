@@ -7,7 +7,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  OneToOne,
   JoinColumn,
 } from 'typeorm';
 import Category from './Category';
@@ -38,10 +37,10 @@ class Item extends BaseEntity {
 
   @Field()
   @Column()
-  categoryId!: string;
+  categoryId?: string;
 
   @Field()
-  @OneToOne(() => Category)
+  @ManyToOne(() => Category)
   @JoinColumn()
   category!: string;
 
